@@ -1,29 +1,40 @@
 import axios from 'axios';
 import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
-export default function PersonList() {
-    const [persons, setPersons] = useState([]);
+export default function PersonList( {socket} ) {
+    const navigate = useNavigate();
+    const [persons, setPersons] = useState([])
+
     useEffect(() => {
         getPersonList();
     }, []);
 
     function getPersonList() {
-        axios.get('http://localhost/reactphp/api/')
+        /*axios.get('http://localhost:3000/persons')
             .then(function (response) {
+                console.log(response.data.data)
                 console.log(response.data);
                 setPersons(response.data);
             })
             .catch(error => {
                 console.log(error);
-            });
+            })
+        console.log(persons);*/
+        socket.emit('get/persons');
+        socket.on('get/persons', (data) => {
+            console.log(data);
+            setPersons(data);
+        });
     }
 
     const deletePerson = (id) => {
-        axios.delete(`http://localhost/reactphp/api/${id}/delete`).then(function (response) {
+        /*axios.delete(`http://localhost:3000/persons/${id}`).then(function (response) {
             console.log(response.data);
             getPersonList();
-        });
+        });*/
+        socket.emit('delete/person', id);
+        navigate('/');
     }
 
     return (
@@ -40,15 +51,15 @@ export default function PersonList() {
                         </tr>
                         </thead>
                         <tbody>
-                    {persons.map((person, index) => (
+                    {persons.map((persons, index) => (
                             <tr key={index}>
-                                <td>{person.id}</td>
-                                <td>{person.name}</td>
-                                <td>{person.email}</td>
-                                <td>{person.avatar}</td>
+                                <td>{persons.id}</td>
+                                <td>{persons.name}</td>
+                                <td>{persons.email}</td>
+                                <td><img className="img" src={persons.avatar} alt=""/></td>
                                 <td>
-                                    <Link to={`/person/${person.id}/edit/`} className="btn btn-primary" style={{marginRight: "10px"}}>Edit</Link>
-                                    <button onClick={() => deletePerson(person.id)} className="btn btn-danger">Delete</button>
+                                    <Link to={`/person/${persons.id}/edit`} className="btn btn-primary" style={{marginRight: "10px"}}>Edit</Link>
+                                    <button onClick={() => deletePerson(persons.id)} className="btn btn-danger">Delete</button>
                                 </td>
                             </tr>
                         ))}
