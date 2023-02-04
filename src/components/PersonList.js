@@ -7,11 +7,14 @@ export default function PersonList( {socket} ) {
     const [persons, setPersons] = useState([])
 
     useEffect(() => {
+        if (!socket.connected) {
+            setPersons(JSON.parse(localStorage.getItem('persons') || '[]'));
+        }
         getPersonList();
     }, []);
 
     function getPersonList() {
-        /*axios.get('http://localhost:3000/persons')
+        /*axios.get('http://localhost:8080/persons')
             .then(function (response) {
                 console.log(response.data.data)
                 console.log(response.data);
@@ -19,8 +22,8 @@ export default function PersonList( {socket} ) {
             })
             .catch(error => {
                 console.log(error);
-            })
-        console.log(persons);*/
+            })*/
+        console.log(persons);
         socket.emit('get/persons');
         socket.on('get/persons', (data) => {
             console.log(data);
@@ -29,7 +32,7 @@ export default function PersonList( {socket} ) {
     }
 
     const deletePerson = (id) => {
-        /*axios.delete(`http://localhost:3000/persons/${id}`).then(function (response) {
+        /*axios.delete(`http://localhost:8080/persons/${id}`).then(function (response) {
             console.log(response.data);
             getPersonList();
         });*/
@@ -59,7 +62,7 @@ export default function PersonList( {socket} ) {
                                 <td><img className="img" src={persons.avatar} alt=""/></td>
                                 <td>
                                     <Link to={`/person/${persons.id}/edit`} className="btn btn-primary" style={{marginRight: "10px"}}>Edit</Link>
-                                    <button onClick={() => deletePerson(persons.id)} className="btn btn-danger">Delete</button>
+                                    <button onClick={() => deletePerson(persons.id)} className="btn btn-danger" name="delete">Delete</button>
                                 </td>
                             </tr>
                         ))}

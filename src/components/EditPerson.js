@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
-
+import token from "./CreatePerson"
 
 export default function PersonList( {socket} ) {
     const navigate = useNavigate();
@@ -16,14 +16,18 @@ export default function PersonList( {socket} ) {
         axios.get(`http://localhost:3000/persons/${id}`)
             .then(function (response) {
                 console.log(response.data);
-                setInputs(response.data.data);
+                setInputs(response.data);
             })
             .catch(error => {
                 console.log(error);
              });
     }
 
-    const [inputs, setInputs] = useState([]);
+    const [inputs, setInputs] = useState({
+        name: '',
+        email: '',
+        avatar: ''
+    });
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -34,13 +38,13 @@ export default function PersonList( {socket} ) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        /*axios.put(`http://localhost:3000/persons/${id}`, inputs).then(function (response) {
+        axios.put(`http://localhost:3000/persons/${id}`, inputs)
+            .then(function (response) {
             console.log(response.data);
-
-        });*/
+        });
         navigate('/');
 
-        socket.emit('update/person', inputs);
+        //socket.emit('update/person', inputs);
     }
     return (
         <div className="row">

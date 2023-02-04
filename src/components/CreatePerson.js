@@ -2,7 +2,9 @@ import {useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
+
 export default function PersonList( {socket} ) {
+
     const navigate = useNavigate();
 
     const [inputs, setInputs] = useState([]);
@@ -16,7 +18,7 @@ export default function PersonList( {socket} ) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        /*axios.post('http://localhost:3000/persons/', inputs).then(function (response) {
+        /*axios.post('http://localhost:8080/persons/', inputs).then(function (response) {
             console.log(response.data);
             navigate('/');
         })*/

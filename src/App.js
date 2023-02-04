@@ -7,6 +7,7 @@ import io from 'socket.io-client';
 import React, {useEffect} from "react";
 import { personData } from "./Interfaces/Persons"
 import LogList from "./components/LogList";
+import token from "../src/components/EditPerson";
 
 function App() {
     const socket = io.connect('http://localhost:3000');
@@ -46,12 +47,12 @@ function App() {
         <div className="App">
           <h1>React CRUD</h1>
             <BrowserRouter>
-                    <Link to="person/create" className="btn btn-primary main-buttons">Create Person</Link>
-                    <Link to="/" className="btn btn-primary main-buttons">List Person</Link>
-                    <Link to="logs" className="btn btn-primary main-buttons">Log List</Link>
+                    <Link to="person/create" className="btn btn-primary main-buttons" name="create">Create Person</Link>
+                    <Link to="/" className="btn btn-primary main-buttons" name="list">List Person</Link>
+                    <Link to="logs" className="btn btn-primary main-buttons" name="logs">Log List</Link>
                 <Routes>
                     <Route index element={<PersonList socket = { socket }/>} />
-                    <Route path="person/create" element={<CreatePerson socket = {socket} />}   />
+                    <Route path="person/create" element={<CreatePerson socket = {socket} token={ token }/>}   />
                     <Route path="person/:id/edit" element={<EditPerson socket = { socket}/>} />
                     <Route path="logs" element={<LogList/>} />
                 </Routes>

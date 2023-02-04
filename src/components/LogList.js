@@ -7,11 +7,11 @@ export default function LogList() {
 
     useEffect(() => {
         getLogs();
-    }, [logs])
+    }, [])
 
 
     function getLogs() {
-        axios.get('http://localhost:3000/log')
+        axios.get('http://localhost:3000/persons/log')
             .then((response) => {
                 setLogs(response.data);
             })
@@ -34,13 +34,13 @@ export default function LogList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {logs.map((log: any) => (
-                        <tr key={log.id}>
+                    {logs.map((log: any, index) => (
+                        <tr key={index}>
                             <td>{log.timestamp}</td>
                             <td>{log.originalUrl}</td>
                             <td>{log.method}</td>
                             <td>{log.clientId}</td>
-                            <td className="text-danger">{log.data}</td>
+                            <td className="text-danger">{log.dataDiff}</td>
                         </tr>
                     ))}
                 </tbody>
