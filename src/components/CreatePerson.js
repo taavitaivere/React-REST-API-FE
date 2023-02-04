@@ -7,6 +7,8 @@ export default function PersonList( {socket} ) {
 
     const navigate = useNavigate();
 
+
+
     const [inputs, setInputs] = useState([]);
 
     const handleChange = (event) => {
