@@ -12,8 +12,7 @@ jobs:
 
       - name: Start local server
         run: node /Users/taavitaivere/IdeaProjects/NodeTS/src/app.ts
-        with:
-          start: npm start
+        start: npm start
 
       - name: Wait for server to start
         run: sleep 5
