@@ -13,12 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Start local server
-        run: node /Users/taavitaivere/IdeaProjects/NodeTS/src/app.ts
-
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
           build: npm install
-          start: npm run cypress:open
+          env:
+            CYPRESS_baseUrl: ${{ env.API_HOST }}
+          run: npm run cypress:open
 
