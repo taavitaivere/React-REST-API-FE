@@ -7,22 +7,22 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
-      with:
-        ref: master
-        repository: taavitaivere/NODE-TS-REST-API
+      - name: Checkout API Repository
+        uses: actions/checkout@v3
+        with:
+          ref: master
+          repository: taavitaivere/NODE-TS-REST-API
 
-    - name: Start Local Server
-      build: npm install
-      start: npm start
+      - name: Start Local Server
+        run: |
+          npm install
+          npm start
 
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout Frontend Repository
+        uses: actions/checkout@v3
 
-    - name: Cypress run
-      uses: cypress-io/github-action@v5
-
-      with:
-            build: npm install
-            start: npm run cypress:open
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          build: npm install
+          start: npm run cypress:open
