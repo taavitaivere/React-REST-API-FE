@@ -21,7 +21,7 @@ jobs:
       - name: Start Local Server
         run: |
           npm install
-          npm start
+          npm start &
 
       - name: Checkout Frontend Repository
         uses: actions/checkout@v3
