@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
-import token from "./CreatePerson"
+
 
 export default function PersonList( {socket} ) {
     const navigate = useNavigate();
@@ -43,8 +43,6 @@ export default function PersonList( {socket} ) {
             console.log(response.data);
         });
         navigate('/');
-
-        //socket.emit('update/person', inputs);
     }
     return (
         <div className="row">

@@ -14,7 +14,7 @@ export default function PersonList( {socket} ) {
     }, []);
 
     function getPersonList() {
-        /*axios.get('http://localhost:8080/persons')
+        /*axios.get('http://localhost:3000/persons')
             .then(function (response) {
                 console.log(response.data.data)
                 console.log(response.data);
@@ -32,7 +32,7 @@ export default function PersonList( {socket} ) {
     }
 
     const deletePerson = (id) => {
-        /*axios.delete(`http://localhost:8080/persons/${id}`).then(function (response) {
+        /*axios.delete(`http://localhost:3030/persons/${id}`).then(function (response) {
             console.log(response.data);
             getPersonList();
         });*/

@@ -7,6 +7,10 @@ jobs:
     runs-on: macOS-latest
 
     steps:
+      - name: Create MySQL database
+        run: |
+          mysql -u root -proot -e "CREATE DATABASE IF NOT EXISTS reactdb;"
+          mysql -u root -proot -e "FLUSH PRIVILEGES;"
       - name: Checkout API Repository
         uses: actions/checkout@v3
         with:
