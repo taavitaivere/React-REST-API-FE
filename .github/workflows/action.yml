@@ -4,7 +4,7 @@ on: [ push ]
 
 jobs:
   cypress_run:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: install MySQL
