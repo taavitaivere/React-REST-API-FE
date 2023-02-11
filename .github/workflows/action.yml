@@ -1,16 +1,17 @@
 name: Cypress Test
 
-on: [push]
+on: [ push ]
 
 jobs:
   cypress_run:
     runs-on: macOS-latest
 
     steps:
-      - name: Create MySQL database
-        run: |
-          mysql -u root -proot -e "CREATE DATABASE IF NOT EXISTS reactdb;"
-          mysql -u root -proot -e "FLUSH PRIVILEGES;"
+      - name: install MySQL
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql database: 'reactdb' # Optional, default value is "test". The specified database which will be create
+          mysql root password: 'root'  # Required if "mysql user" is empty, default is empty. The root superuser password
       - name: Checkout API Repository
         uses: actions/checkout@v3
         with:
