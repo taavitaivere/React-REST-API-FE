@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - name: install MySQL
-      - uses: mirromutth/mysql-action@v1.1
+        uses: mirromutth/mysql-action@v1.1
         with:
           mysql database: 'reactdb' # Optional, default value is "test". The specified database which will be create
           mysql root password: 'root'  # Required if "mysql user" is empty, default is empty. The root superuser password
