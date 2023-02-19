@@ -25,9 +25,12 @@ jobs:
 
       - name: Checkout Frontend Repository
         uses: actions/checkout@v3
+        with:
+          build: |
+            npm install
+            npm start
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          build: npm install
           start: npm run cypress:open
