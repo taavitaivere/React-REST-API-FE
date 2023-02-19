@@ -28,7 +28,7 @@ jobs:
         with:
           build: |
             npm install
-            npm start -- --port 3001 &
+            npm start -- --verbose -- --port 3001 &
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
