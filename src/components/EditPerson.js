@@ -57,7 +57,6 @@ export default function PersonList( {socket} ) {
             .then(function (response) {
             console.log(response.data);
         });
-
         navigate('/');
     }
     return (
