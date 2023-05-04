@@ -22,7 +22,12 @@ export default function PersonList( {socket} ) {
             console.log(response.data);
             navigate('/');
         })*/
-        socket.emit('create/person', inputs);
+        // for github actions
+        axios.post('https://63274caeba4a9c475334aec1.mockapi.io/crud', inputs).then(function (response) {
+            console.log(response.data);
+            navigate('/');
+        })
+        //socket.emit('create/person', inputs);
         navigate('/');
     }
 
