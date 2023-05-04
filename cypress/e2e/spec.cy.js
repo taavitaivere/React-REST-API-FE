@@ -1,6 +1,6 @@
 describe('template spec', () => {
   it('passes', () => {
-    cy.visit('http://localhost:3001/', { timeout: 10000 });
+    cy.visit('http://localhost:3000/', { timeout: 10000 });
     cy.wait(300)
     cy.get('[name="create"]').click()
     cy.get('input[name=name]').type('John Doe');
