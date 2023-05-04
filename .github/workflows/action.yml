@@ -6,14 +6,8 @@ jobs:
   cypress_run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repository and run Cypress
         uses: actions/checkout@v3
         with:
           build: |
-            npm start wait-on http://localhost:3000 &
-
-      - name: Cypress run
-        uses: cypress-io/github-action@v5
-        with:
-          start: npx cypress open
-
+            npm start wait-on http://localhost:3000 && npx cypress open
