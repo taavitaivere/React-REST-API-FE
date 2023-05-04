@@ -5,11 +5,12 @@ on: push
 jobs:
   cypress_run:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v3
+        with:
+          build: |
+            npm start -- --verbose http://localhost:3000 &
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
