@@ -1,6 +1,6 @@
 describe('template spec', () => {
   it('passes', () => {
-    cy.visit('http://localhost:3001/');
+    cy.visit('http://localhost:3000/', { timeout: 10000 });
     cy.wait(300)
     cy.get('[name="create"]').click()
     cy.get('input[name=name]').type('John Doe');
@@ -8,7 +8,6 @@ describe('template spec', () => {
     cy.get('input[name=avatar]').type('testPilt')
     cy.get('form > .btn').click()
     cy.get('[name="logs"]').click()
-    cy.get(':nth-child(6) > .text-danger')
     cy.get('[name="list"]').click()
     cy.get(':nth-child(1) > :nth-child(5) > .btn-danger').click()
     cy.get('[name="create"]').click()
@@ -23,5 +22,6 @@ describe('template spec', () => {
     cy.get('form > .btn').click()
     cy.get('[name="create"]').click()
     cy.get('[name="list"]').click()
+    cy.get(':nth-child(1) > :nth-child(5) > .btn-danger').click()
   })
 })

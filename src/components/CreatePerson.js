@@ -7,8 +7,6 @@ export default function PersonList( {socket} ) {
 
     const navigate = useNavigate();
 
-
-
     const [inputs, setInputs] = useState([]);
 
     const handleChange = (event) => {
@@ -20,11 +18,16 @@ export default function PersonList( {socket} ) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        /*axios.post('http://localhost:8080/persons/', inputs).then(function (response) {
+        /*axios.post('http://localhost:3000/persons/', inputs).then(function (response) {
             console.log(response.data);
             navigate('/');
         })*/
-        socket.emit('create/person', inputs);
+        // for github actions
+        axios.post('https://63274caeba4a9c475334aec1.mockapi.io/crud', inputs).then(function (response) {
+            console.log(response.data);
+            navigate('/');
+        })
+        //socket.emit('create/person', inputs);
         navigate('/');
     }
 

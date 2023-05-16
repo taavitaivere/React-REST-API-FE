@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
-import token from "./CreatePerson"
+
 
 export default function PersonList( {socket} ) {
     const navigate = useNavigate();
@@ -13,7 +13,16 @@ export default function PersonList( {socket} ) {
     }, []);
 
     function getPerson() {
-        axios.get(`http://localhost:3000/persons/${id}`)
+        /*axios.get(`http://localhost:3000/persons/${id}`)
+            .then(function (response) {
+                console.log(response.data);
+                setInputs(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+             });*/
+        // for github actions
+        axios.get(`https://63274caeba4a9c475334aec1.mockapi.io/crud/${id}`)
             .then(function (response) {
                 console.log(response.data);
                 setInputs(response.data);
@@ -38,13 +47,17 @@ export default function PersonList( {socket} ) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.put(`http://localhost:3000/persons/${id}`, inputs)
+        /*axios.put(`http://localhost:3000/persons/${id}`, inputs)
+            .then(function (response) {
+            console.log(response.data);
+        });*/
+
+        // for github actions
+        axios.put(`https://63274caeba4a9c475334aec1.mockapi.io/crud/${id}`, inputs)
             .then(function (response) {
             console.log(response.data);
         });
         navigate('/');
-
-        //socket.emit('update/person', inputs);
     }
     return (
         <div className="row">

@@ -1,33 +1,18 @@
 name: Cypress Test
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-env:
-  NODE_ENV: test
+on: push
 
 jobs:
   cypress_run:
-    runs-on: macOS-latest
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - name: Checkout Repository and run Cypress
+        uses: actions/checkout@v3
         with:
-          node-version: 16
+          build: |
+            npm start wait-on http://localhost:3000 &
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm start -- --verbose http://localhost:3000 && npx cypress open
 
-      - name: Install dependencies
-        run: |
-          npm ci
-
-      - name: Run Cypress tests
-        run: |
-          npx cypress run

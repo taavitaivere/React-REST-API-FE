@@ -14,7 +14,7 @@ export default function PersonList( {socket} ) {
     }, []);
 
     function getPersonList() {
-        /*axios.get('http://localhost:8080/persons')
+        /*axios.get('http://localhost:3000/persons')
             .then(function (response) {
                 console.log(response.data.data)
                 console.log(response.data);
@@ -22,21 +22,39 @@ export default function PersonList( {socket} ) {
             })
             .catch(error => {
                 console.log(error);
-            })*/
+            })
+        console.log(persons);*/
+
+        // for github actions
+        axios.get('https://63274caeba4a9c475334aec1.mockapi.io/crud')
+            .then(function (response) {
+                console.log(response.data.data)
+                console.log(response.data);
+                setPersons(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
         console.log(persons);
-        socket.emit('get/persons');
+        /*socket.emit('get/persons');
         socket.on('get/persons', (data) => {
             console.log(data);
             setPersons(data);
-        });
+        });*/
     }
 
     const deletePerson = (id) => {
-        /*axios.delete(`http://localhost:8080/persons/${id}`).then(function (response) {
+        /*axios.delete(`http://localhost:3000/persons/${id}`).then(function (response) {
             console.log(response.data);
             getPersonList();
         });*/
-        socket.emit('delete/person', id);
+
+        // for github actions
+        axios.delete(`https://63274caeba4a9c475334aec1.mockapi.io/crud/${id}`).then(function (response) {
+            console.log(response.data);
+            getPersonList();
+        });
+        //socket.emit('delete/person', id);
         navigate('/');
     }
 
