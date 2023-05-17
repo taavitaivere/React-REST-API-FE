@@ -40,7 +40,9 @@ export default function LogList() {
                             <td>{log.originalUrl}</td>
                             <td>{log.method}</td>
                             <td>{log.clientId}</td>
-                            <td className="text-danger">{log.dataDiff}</td>
+                            <td className="text-danger">
+                                {log.method === 'POST' ? log.body : log.dataDiff}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
