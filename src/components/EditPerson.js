@@ -21,6 +21,7 @@ export default function PersonList( {socket} ) {
             .catch(error => {
                 console.log(error);
              });*/
+
         // for github actions
         axios.get(`https://63274caeba4a9c475334aec1.mockapi.io/crud/${id}`)
             .then(function (response) {
