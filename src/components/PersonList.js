@@ -20,6 +20,15 @@ export default function PersonList() {
             })
     }
 
+    const deletePerson = (id) => {
+
+        axios.delete(`https://63274caeba4a9c475334aec1.mockapi.io/crud/${id}`).then(function (response) {
+            console.log(response.data);
+            getPersonList();
+        });
+        navigate('/');
+    }
+
     return (
         <div className="row">
             <div className="col-md-12">
@@ -42,6 +51,7 @@ export default function PersonList() {
                                 <td><img className="img" src={persons.avatar} alt=""/></td>
                                 <td>
                                     <Link to={`/person/${persons.id}/edit`} className="btn btn-primary" style={{marginRight: "10px"}}>Edit</Link>
+                                    <button onClick={() => deletePerson(persons.id)} className="btn btn-danger">Delete</button>
                                 </td>
                             </tr>
                         ))}
