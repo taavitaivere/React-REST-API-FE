@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export default function PersonList() {
     const navigate = useNavigate();
@@ -40,6 +40,9 @@ export default function PersonList() {
                                 <td>{persons.name}</td>
                                 <td>{persons.email}</td>
                                 <td><img className="img" src={persons.avatar} alt=""/></td>
+                                <td>
+                                    <Link to={`/person/${persons.id}/edit`} className="btn btn-primary" style={{marginRight: "10px"}}>Edit</Link>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

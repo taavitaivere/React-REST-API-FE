@@ -1,7 +1,8 @@
 import './App.css';
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import CreatePerson from "./components/CreatePerson";
 import React from "react";
+import CreatePerson from "./components/CreatePerson";
+import EditPerson from "./components/EditPerson";
 import PersonList from "./components/PersonList";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<PersonList/>}/>
                         <Route path="/person/create" element={<CreatePerson/>}/>
+                        <Route path="person/:id/edit" element={<EditPerson/>} />
                     </Routes>
                 </BrowserRouter>
             </div>
