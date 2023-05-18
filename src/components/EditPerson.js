@@ -14,7 +14,7 @@ export default function PersonList() {
 
     function getPerson() {
 
-        axios.get(`https://63274caeba4a9c475334aec1.mockapi.io/crud/${id}`)
+        axios.get(`http://localhost:3000/persons/${id}`)
             .then(function (response) {
                 setInputs(response.data);
             })
