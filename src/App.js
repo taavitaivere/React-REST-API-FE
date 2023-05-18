@@ -7,6 +7,7 @@ import PersonList from "./components/PersonList";
 import {io} from "socket.io-client";
 import token from "../src/components/EditPerson";
 import type {personData} from "./Interfaces/Persons";
+import LogList from "./components/LogList";
 
 function App() {
     const socket = io.connect('http://localhost:3000');
@@ -47,11 +48,12 @@ function App() {
                 <BrowserRouter>
                     <Link to="person/create" className="btn btn-primary main-buttons" name="create">Create Person</Link>
                     <Link to="/" className="btn btn-primary main-buttons" name="list">List Person</Link>
-                    <Link className="btn btn-primary main-buttons" name="logs">Log List</Link>
+                    <Link to="logs" className="btn btn-primary main-buttons" name="logs">Log List</Link>
                     <Routes>
                         <Route index element={<PersonList socket = { socket }/>} />
                         <Route path="person/create" element={<CreatePerson socket = {socket} token={ token }/>}/>
                         <Route path="person/:id/edit" element={<EditPerson socket={socket}/>} />
+                        <Route path="logs" element={<LogList/>} />
                     </Routes>
                 </BrowserRouter>
             </div>
