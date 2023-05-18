@@ -11,7 +11,7 @@ export default function PersonList() {
     }, []);
 
     function getPersonList() {
-        axios.get('https://63274caeba4a9c475334aec1.mockapi.io/crud')
+        axios.get('http://localhost:3000/persons')
             .then(function (response) {
                 setPersons(response.data);
             })
@@ -22,8 +22,7 @@ export default function PersonList() {
 
     const deletePerson = (id) => {
 
-        axios.delete(`https://63274caeba4a9c475334aec1.mockapi.io/crud/${id}`).then(function (response) {
-            console.log(response.data);
+        axios.delete(`http://localhost:3000/persons/${id}`).then(function (response) {
             getPersonList();
         });
         navigate('/');
