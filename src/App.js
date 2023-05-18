@@ -6,6 +6,7 @@ import EditPerson from "./components/EditPerson";
 import PersonList from "./components/PersonList";
 import {io} from "socket.io-client";
 import token from "../src/components/EditPerson";
+import type {personData} from "./Interfaces/Persons";
 
 function App() {
     const socket = io.connect('http://localhost:3000');
@@ -24,6 +25,11 @@ function App() {
     const handleCreatePerson = (data) => {
         setCreatePerson(data);
         setEditPerson(!editPerson);
+    }
+
+    const handleDeletePerson = (e: React.MouseEvent<HTMLTableDataCellElement>, data : personData) => {
+        socket.emit('delete/person', data._id);
+
     }
 
     useEffect(() => {

@@ -7,9 +7,6 @@ export default function PersonList( {socket} ) {
     const [persons, setPersons] = useState([])
 
     useEffect(() => {
-        if (!socket.connected) {
-            setPersons(JSON.parse(localStorage.getItem('persons') || '[]'));
-        }
         getPersonList();
     }, []);
 
@@ -21,10 +18,7 @@ export default function PersonList( {socket} ) {
     }
 
     const deletePerson = (id) => {
-
-        axios.delete(`http://localhost:3000/persons/${id}`).then(function (response) {
-            getPersonList();
-        });
+        socket.emit('delete/person', id);
         navigate('/');
     }
 
