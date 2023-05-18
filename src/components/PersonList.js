@@ -2,22 +2,22 @@ import axios from 'axios';
 import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 
-export default function PersonList() {
+export default function PersonList( {socket} ) {
     const navigate = useNavigate();
     const [persons, setPersons] = useState([])
 
     useEffect(() => {
+        if (!socket.connected) {
+            setPersons(JSON.parse(localStorage.getItem('persons') || '[]'));
+        }
         getPersonList();
     }, []);
 
     function getPersonList() {
-        axios.get('http://localhost:3000/persons')
-            .then(function (response) {
-                setPersons(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        socket.emit('get/persons');
+        socket.on('get/persons', (data) => {
+            setPersons(data);
+        });
     }
 
     const deletePerson = (id) => {
