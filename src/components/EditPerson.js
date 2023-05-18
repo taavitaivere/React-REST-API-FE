@@ -3,7 +3,7 @@ import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 
 
-export default function PersonList() {
+export default function PersonList( {socket} ) {
     const navigate = useNavigate();
 
     const {id} = useParams();
@@ -13,7 +13,6 @@ export default function PersonList() {
     }, []);
 
     function getPerson() {
-
         axios.get(`http://localhost:3000/persons/${id}`)
             .then(function (response) {
                 setInputs(response.data);
@@ -37,10 +36,8 @@ export default function PersonList() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.put(`https://63274caeba4a9c475334aec1.mockapi.io/crud/${id}`, inputs)
-            .then(function (response) {
-            console.log(response.data);
-        });
+
+        socket.emit('update/person', inputs);
         navigate('/');
     }
     return (
@@ -67,3 +64,4 @@ export default function PersonList() {
         </div>
     )
 }
+

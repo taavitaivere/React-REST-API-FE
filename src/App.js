@@ -12,7 +12,7 @@ function App() {
 
     const [persons, setPersons] = React.useState([]);
     const [createPerson, setCreatePerson] = React.useState(false);
-
+    const [editPerson, setEditPerson] = React.useState(false);
     const handleGetPersons = (data) => {
         socket.emit('get/persons');
         socket.on('get/persons', (data) => {
@@ -23,14 +23,17 @@ function App() {
 
     const handleCreatePerson = (data) => {
         setCreatePerson(data);
+        setEditPerson(!editPerson);
     }
 
     useEffect(() => {
         if (!socket.connected) {
             setPersons(JSON.parse(localStorage.getItem('persons') || '[]'));
         }
+        socket.on("connect", () => {
+            handleGetPersons();
+        });
     }, []);
-
     return (
         <div className="container">
             <div className="App">
@@ -42,7 +45,7 @@ function App() {
                     <Routes>
                         <Route index element={<PersonList socket = { socket }/>} />
                         <Route path="person/create" element={<CreatePerson socket = {socket} token={ token }/>}/>
-                        <Route path="person/:id/edit" element={<EditPerson/>} />
+                        <Route path="person/:id/edit" element={<EditPerson socket={socket}/>} />
                     </Routes>
                 </BrowserRouter>
             </div>
