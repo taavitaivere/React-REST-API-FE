@@ -18,7 +18,7 @@ export default function PersonList( ) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.post('https://63274caeba4a9c475334aec1.mockapi.io/crud', inputs).then(function (response) {
+        axios.post('http://localhost:3000/persons/', inputs).then(function (response) {
         })
         navigate('/');
     }
