@@ -3,7 +3,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
 
-export default function PersonList( ) {
+export default function PersonList( {socket} ) {
 
     const navigate = useNavigate();
 
@@ -18,8 +18,7 @@ export default function PersonList( ) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.post('http://localhost:3000/persons/', inputs).then(function (response) {
-        })
+        socket.emit('create/person', inputs);
         navigate('/');
     }
 

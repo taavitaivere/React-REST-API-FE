@@ -1,11 +1,34 @@
 import './App.css';
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import React from "react";
+import React, {useEffect} from "react";
 import CreatePerson from "./components/CreatePerson";
 import EditPerson from "./components/EditPerson";
 import PersonList from "./components/PersonList";
+import {io} from "socket.io-client";
 
 function App() {
+    const socket = io.connect('http://localhost:3000');
+
+    const [persons, setPersons] = React.useState([]);
+    const [createPerson, setCreatePerson] = React.useState(false);
+
+    const handleGetPersons = (data) => {
+        socket.emit('get/persons');
+        socket.on('get/persons', (data) => {
+            setPersons(data);
+            localStorage.setItem('persons', JSON.stringify(data));
+        });
+    }
+
+    const handleCreatePerson = (data) => {
+        setCreatePerson(data);
+    }
+
+    useEffect(() => {
+        if (!socket.connected) {
+            setPersons(JSON.parse(localStorage.getItem('persons') || '[]'));
+        }
+    }, []);
 
     return (
         <div className="container">
